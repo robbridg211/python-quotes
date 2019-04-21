@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes Register or Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<style>
+* {
+    color: blue;
+}
+h1 {
+    background-color: lightblue;
+    border: 3px solid blue;
+    border-radius: 10px;
+    width: 320px;
+    text-align: center;
+    padding: 10px;
+    margin: 20px auto;
+}
+
+.main_container {
+    margin: 0 auto;
+    height: 650px;
+    width: 850px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: lightgray;
+    box-shadow: 2px 2px 8px darkblue;
+}
+#reg_container, #login_container {
+    vertical-align: top;
+    margin: 0px auto;
+    width: 400px;
+    display: inline-block;
+}
+#login_container {
+    background-image: linear-gradient(lightgray, darkgray);
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px darkblue;
+    padding-bottom: 10px;
+}
+form input {
+    display: block;
+    width: 250px;
+    text-align: center;
+    background-color: white;
+    padding: 5px;
+    color: black;
+    border-radius: 10px;
+    margin: 10px 0px;
+}
+#login-btn {
+    width: auto;
+}
+
+</style>
+
+<body>
+<div class="main_container">
+    <h1>Quotes App</h1>
+
+    <form id="reg_container" class="col-md-6" action="/register", method="post">
+        <h2>Register Here</h2>
+    
+        First Name: <br />
+        {% with messages = get_flashed_messages(category_filter=["first_name"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                <span>{{ message|safe }}</span>
+                {% endfor %}
+            {% endif %}
+            {% endwith %} 
+        <input type="text" name="first_name" placeholder="enter first name" value="" />
+
+        
+        Last Name: <br />
+        {% with messages = get_flashed_messages(category_filter=["last_name"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                <span>{{ message|safe }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <input type="text" name="last_name" placeholder="enter last name" value="" />
+
+        
+        Email: <br />
+        {% with messages = get_flashed_messages(category_filter=["email"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                <span>{{ message|safe }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <input type="text" name="email" placeholder="enter your email" value="" />
+
+        
+        Password: <br />
+        {% with messages = get_flashed_messages(category_filter=["password"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                <span>{{ message|safe }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <input type="password" name="password" placeholder="enter password" value="" />
+    
+        
+        Confirm Password: <br />
+        {% with messages = get_flashed_messages(category_filter=["confirmpassword"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                <span>{{ message|safe }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <input type="password" name="confirmpassword" placeholder="confirm password"value="" />
+
+
+        <input input type="submit" value="Register!" class="btn btn-success"/>
+
+    </form>
+
+    <form id="login_container" class="col-md-6" action="/login", method="post">
+        <h3>Already Registered?</h3>
+        <h4>Login</h4>
+        Email:
+        {% with messages = get_flashed_messages(category_filter=["log_email"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                <span>{{ message|safe }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %} 
+        <input type="text" name="email" value="" />
+
+        Password: 
+        {% with messages = get_flashed_messages(category_filter=["log_password"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                <span>{{ message|safe }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <input type="password" name="password" value="" />
+
+        <input type="submit" id="login-btn" class="btn btn-success" value="Login"/>
+
+    </form>
+</div>
+    
+</body>
+</html>

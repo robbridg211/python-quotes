@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<style>
+
+.container {
+    width: 100%;
+}
+.header, .header h2, .header a {
+    display: inline-block;
+}
+h2 {
+    width: 600px;
+}
+.header {
+    padding: 10px;
+    width: 100%;
+    background-color: lightblue;
+}
+.red {
+    background-color: red;
+    width: 68px;
+    height: 40px;
+    padding: 10px;
+    color: white;
+    font-weight: 400;
+    border-radius: 10px;
+    text-decoration: none;
+}
+.blue {
+    background-color: #007bff;
+    width: 160px;
+    margin: 0px 30px;
+    padding: 10px;
+    font-weight: 400;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+.row {
+    margin-top: 30px;
+    padding: 10px;
+}
+.btn-success {
+    margin: 15px;
+}
+.form-control {
+    margin: 15px 0px;
+    width: 90%;
+}
+.quote-box {
+    border: 2px solid #007bff;
+    background-image: linear-gradient(lightgray, white);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 5px;
+    word-wrap: break-word;
+}
+
+h5 {
+    font-size: 18px;
+    font-style: italic;
+}
+</style>
+<body>
+    <div class="container">
+
+    <div class="header">
+        <h2>Welcome Home, {{firstName|upper}}!</h2>
+        <a href="/myaccount/{{session['id']}}" class="blue">Edit my Account</a>
+        <a href="/logout" class="red">Log out</a>
+    </div>
+
+    
+        <div class="row">
+            <div class="col-md-5">
+                
+                <h4>Quotes:</h4>
+                {% with messages = get_flashed_messages(category_filter=["newquote"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <span>{{ message|safe }}</span>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %} 
+                
+                {% if quote %}
+                    {% for quote in quote%}
+                <div class="quote-box">
+                    <h5>{{quote.author}} said: "{{quote.quote}}"</h5>
+                    <p>Posted By: <a href="/user/{{quote.id}}">{{ quote.first_name }}</a></p>
+                    <p>{{quote.likes}} people like this</p>
+                    
+                    
+                    {% if session['id'] == quote['id']: %} 
+                    <a href="/delete/{{quote['idQ']}}">Delete</a>
+                    {%else %}
+                     
+                    <a href="/like/{{quote['idQ']}}"><button type="submit" class="btn btn-warning">Like</button></a>
+                    {% endif %}
+                </div>
+                    {% endfor %}
+                {% endif %}
+                
+               
+            </div>
+
+            <div class="col-md-5">
+                <h4>Add a Quote!</h4>
+                
+                <form action="/quotes" method="post">
+                    <label>Author:</label>
+                    {% with messages = get_flashed_messages(category_filter=["author"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <span>{{ message|safe }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %} 
+                    <input type="text" class="form-control" name="author" placeholder="Enter Author" value="">
+                    <label>Quote:</label>
+                    {% with messages = get_flashed_messages(category_filter=["quote"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <span>{{ message|safe }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %} 
+                    <textarea type="text" class="form-control" name="quote" placeholder="Enter Quote" value=""></textarea>
+                    
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

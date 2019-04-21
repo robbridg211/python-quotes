@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<style>
+
+
+.header, .header h2, .header a {
+    display: inline-block;
+}
+h2 {
+    width: 688px;
+}
+.header {
+    padding: 10px;
+    width: 944px;
+    background-color: lightblue;
+}
+.red {
+    background-color: red;
+    width: 68px;
+    height: 40px;
+    padding: 10px;
+    color: white;
+    font-weight: 400;
+    border-radius: 10px;
+    text-decoration: none;
+}
+.blue {
+    background-color: #007bff;
+    width: 100px;
+    margin: 0px 30px;
+    padding: 10px;
+    font-weight: 400;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+.row {
+    margin-top: 30px;
+    padding: 10px;
+    width: 50%;
+    margin: 0px auto;
+}
+.btn-success {
+    margin: 15px;
+}
+h4 {
+    margin: 30px 0px;
+}
+.form-control {
+    margin: 10px 0px;
+}
+
+
+</style>
+<body>
+
+    <div class="header">
+        <h2>Welcome Home, {{firstName|upper}}!</h2>
+        <a href="/quotes" class="blue">&#8592; Back</a>
+        <a href="/logout" class="red">Log out</a>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <h4>Edit My Account</h4>
+            {% with messages = get_flashed_messages(category_filter=["update"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <span>{{ message|safe }}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %} 
+            {% with messages = get_flashed_messages(category_filter=["noupdate"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <span>{{ message|safe }}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %} 
+            <form action="/update" method="post">
+                <label>First Name:</label>
+                <input type="text" class="form-control" name="first_name" value="{{ firstName }}" />
+                <label>Last Name:</label>
+                <input type="text" class="form-control" name="last_name" value="{{ lastName }}" />
+                <label>Email:</label>
+                {% with messages = get_flashed_messages(category_filter=["noemail"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <span>{{ message|safe }}</span>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %} 
+                <input type="text" class="form-control" name="email" value="{{eMail}}" />
+                <button type="submit" class="btn btn-success">Update</button>
+            </form>
+        </div>
+
+            
+    </div>
+</body>
+</html>

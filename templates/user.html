@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<style>
+
+
+.header, .header h2, .header a {
+    display: inline-block;
+}
+h2 {
+    width: 688px;
+}
+.header {
+    padding: 10px;
+    width: 944px;
+    background-color: lightblue;
+}
+.red {
+    background-color: red;
+    width: 68px;
+    height: 40px;
+    padding: 10px;
+    color: white;
+    font-weight: 400;
+    border-radius: 10px;
+    text-decoration: none;
+}
+.blue {
+    background-color: #007bff;
+    width: 100px;
+    margin: 0px 30px;
+    padding: 10px;
+    font-weight: 400;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+.row {
+    padding: 10px;
+    width: 50%;
+    margin: 10px;
+}
+.btn-success {
+    margin: 15px;
+}
+.form-control {
+    margin: 15px 0px;
+    width: 50%;
+}
+h4 {
+    text-align: center;
+    margin: 20px;
+}
+.quote-box {
+    border: 2px solid #007bff;
+    background-image: linear-gradient(lightgray, white);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 5px;
+    word-wrap: break-word;
+}
+.btn-warning {
+    margin-left: 380px;
+}
+
+</style>
+<body>
+
+    <div class="header">
+        <h2>Welcome Home, {{ firstName|upper }}!</h2>
+        <a href="/quotes" class="blue">&#8592; Back</a>
+        <a href="/logout" class="red">Log out</a>
+    </div>
+
+    
+        <div class="row">
+                       
+                <h4>{{user}} Quotes:</h4>
+
+                {% if userQuotes %}
+                    {% for quote in userQuotes %}
+                <div class="quote-box">
+                    <h3 style="font-style:italic">{{quote['author']}}: {{quote['quote']}}</h3>
+                    <p>Posted On: {{quote['created_at'].strftime('%B %d, %Y %I:%M %p %Z')}}</p>
+                </div>
+                    {% endfor %}
+                {% endif %}
+            
+
+            
+        </div>
+</body>
+</html>
